@@ -72,7 +72,12 @@ void* vector_at(Vector* vector, size_t index)
 
     for (size_t i = 0; i < vector->size; i++) {
         if (i == index) {
-            return &vector->array[i];
+            switch (vector->element_type) {
+                case TOKEN:
+                    return &((Token*)vector->array)[i];
+                case AST_NODE:
+                    return &((AstNode*)vector->array)[i];
+            }
         }
     }
 
@@ -94,11 +99,18 @@ void print_vector(Vector* vector)
     for (size_t i = 0; i < vector->size; i++) {
         switch (vector->element_type) {
             case TOKEN: 
-                print_token(((Token*)vector->array)[i]);
+                // print_token(((Token*)vector->array)[i]);
+                Token* token = vector_at(vector, i);
+                print_token(*token);
                 printf(",\n");
+                break;
             case AST_NODE:
                 print_ast_node(((AstNode*)vector->array)[i]);
                 printf(",\n");
+                break;
+            default: 
+                printf("Unkown token\n");
+                break;
         }
     }
 }
