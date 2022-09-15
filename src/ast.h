@@ -7,7 +7,6 @@
 typedef struct
 {
     Vector* nodes;
-    size_t nodes_size;
 } Ast;
 
 Ast* new_ast();
