@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "tokenizer.h"
 #include "../include/string_utils.h"
 #include "../include/vector.h"
@@ -36,13 +37,15 @@ Vector* tokenize(char* string)
     char* token_string = strtok(string, " ");
     Vector* token_vector = new_vector(TOKEN);
 
+    printf("%s\n", str_to_upper(token_string));
+
     while (token_string) {
         if (
-            str_equals(token_string, "create") || 
-            str_equals(token_string, "insert") || 
-            str_equals(token_string, "select") || 
-            str_equals(token_string, "table") ||
-            str_equals(token_string, "database") 
+            str_equals(str_to_upper(token_string), "CREATE") || 
+            str_equals(str_to_upper(token_string), "INSERT") || 
+            str_equals(str_to_upper(token_string), "SELECT") || 
+            str_equals(str_to_upper(token_string), "table") ||
+            str_equals(str_to_upper(token_string), "database") 
         ) {
             Token token = init_token(KEYWORD, token_string);
             vector_push(token_vector, &token);
