@@ -47,8 +47,7 @@ Vector* tokenize(char* string)
         ) {
             Token token = init_token(KEYWORD, token_string);
             vector_push(token_vector, &token);
-        } else if (str_equals(token_string, "<")) {
-            Token token = init_token(LESS, token_string);
+        } else if (str_equals(token_string, "<")) { Token token = init_token(LESS, token_string);
             vector_push(token_vector, &token);
         } else if (str_equals(token_string, ">")) {
             Token token = init_token(GREATER, token_string);
@@ -89,7 +88,7 @@ void free_token(Token* token)
 
 void print_token(Token token)
 {
-    if (token.type < KEYWORD || token->type > VALUE) {
+    if (token.type < KEYWORD || token.type > VALUE) {
         fprintf(stderr, "Cannot print unknown token");
         return;
     }
