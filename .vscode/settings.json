@@ -1,5 +1,8 @@
 {
     "files.associations": {
-        "input_buffer.h": "c"
-    }
+        "input_buffer.h": "c",
+        "vector.h": "c",
+        "ast_node.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
 }
