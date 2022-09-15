@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-g -w -O2 -std=c99
+CFLAGS=-g -Wall -O2 -std=c99
 INCLUDE_DIR=include
 MAIN_DEPS=$(INCLUDE_DIR)/input_buffer.c \
 	$(INCLUDE_DIR)/string_utils.c \
@@ -8,8 +8,8 @@ MAIN_DEPS=$(INCLUDE_DIR)/input_buffer.c \
 	src/ast_node.c \
 	src/ast.c \
 
-main: src/main.o 
-	$(CC) $(CFLAGS) src/main.c $(MAIN_DEPS) -o main.o
+main: src/main.o
+	$(CC) $(CFLAGS) src/main.c $(MAIN_DEPS) -o main
 
 string_utils: string_utils.o
 	$(CC) $(CFLAGS) string_utils.c -o string_utils.o
@@ -30,4 +30,4 @@ ast: ast.o
 	$(CC) $(CFLAGS) src/ast.c $(INCLUDE_DIR)/vector.c -o ast.o
 
 clean:
-	rm -f **/*.o
+	rm -f **/*.o **/main
