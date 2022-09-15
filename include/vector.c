@@ -42,11 +42,13 @@ void vector_push(Vector* vector, void* element)
             ((Token*)vector->array)[vector->size++] = *((Token*)element);
             break;
         case AST_NODE:
-            vector->array = calloc(new_capacity, sizeof(AstNode));
+            if (vector->size == vector->capacity) {
+                vector->array = calloc(new_capacity, sizeof(AstNode));
 
-            for (size_t i = 0; i < old_capacity; i++) {
-                ((AstNode*)vector->array)[i] = ((AstNode*)old_vector_array)[i];
-            }
+                for (size_t i = 0; i < old_capacity; i++) {
+                    ((AstNode*)vector->array)[i] = ((AstNode*)old_vector_array)[i];
+                }
+            } 
 
             ((AstNode*)vector->array)[vector->size++] = *((AstNode*)element);
             break;
@@ -54,6 +56,27 @@ void vector_push(Vector* vector, void* element)
             fprintf(stderr, "Could not push a new element to vector\n");
             break;
     }
+}
+
+void* vector_at(Vector* vector, size_t index)
+{
+    if (!vector) {
+        fprintf(stderr, "Could not get at %zu in null vector\n", index);
+        return NULL;
+    }
+
+    if (index > vector->size) {
+        fprintf(stderr, "index %zu invalid!\nindex must be at most %zu\n", index, vector->size);
+        return NULL;
+    }
+
+    for (size_t i = 0; i < vector->size; i++) {
+        if (i == index) {
+            return &vector->array[i];
+        }
+    }
+
+    return NULL;
 }
 
 void print_vector(Vector* vector) 

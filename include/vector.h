@@ -13,6 +13,7 @@ typedef struct
 
 Vector* new_vector(VectorElementType element_type);
 void vector_push(Vector* vector, void* element);
+void* vector_at(Vector* vector, size_t index);
 void print_vector(Vector* vector);
 void free_vector(Vector* vector);
 

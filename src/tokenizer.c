@@ -37,15 +37,13 @@ Vector* tokenize(char* string)
     char* token_string = strtok(string, " ");
     Vector* token_vector = new_vector(TOKEN);
 
-    printf("%s\n", str_to_upper(token_string));
-
     while (token_string) {
         if (
             str_equals(str_to_upper(token_string), "CREATE") || 
             str_equals(str_to_upper(token_string), "INSERT") || 
             str_equals(str_to_upper(token_string), "SELECT") || 
-            str_equals(str_to_upper(token_string), "table") ||
-            str_equals(str_to_upper(token_string), "database") 
+            str_equals(str_to_upper(token_string), "TABLE") ||
+            str_equals(str_to_upper(token_string), "DATABASE") 
         ) {
             Token token = init_token(KEYWORD, token_string);
             vector_push(token_vector, &token);
@@ -91,5 +89,10 @@ void free_token(Token* token)
 
 void print_token(Token token)
 {
+    if (token.type < KEYWORD || token->type > VALUE) {
+        fprintf(stderr, "Cannot print unknown token");
+        return;
+    }
+
     printf("{ TOKEN_TYPE = %s, TOKEN_CONTENT = %s }", tokens_type[token.type], token.content);
 }
