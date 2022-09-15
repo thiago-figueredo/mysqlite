@@ -1,6 +1,9 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "tokenizer.h"
+#include "../include/vector.h"
 #include "../include/string_utils.h"
 #include "../include/input_buffer.h"
 
